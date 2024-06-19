@@ -17,20 +17,28 @@ namespace IconSelectorMeow
     using System.ComponentModel;
     using Unity.Mathematics;
 
+
+    // * Version History
+    // * V1.0.0
+    // * - Initial release
+    // * V1.1.0
+    // * - Add Exiled support
+    // * V1.1.1
+    // * - Fix the bug that make UseCustomIcon and UseOriginalIcon not working
+    // * - Fix the bug that OnEnabled config does not works in Exiled
+    // * - Add "YourIcon" into default config and add a link to icon making website
     public class APIPlugin
     {
         [PluginConfig] public Config Config;
 
-        [PluginEntryPoint("AnIconSelectorMeow", "1.1.0", "Select the Exiled icon you want to show", "MeowServer")]
+        [PluginEntryPoint("AnIconSelectorMeow", "1.1.1", "Select the Exiled icon you want to show", "MeowServer")]
         [PluginPriority(byte.MinValue)]
         private void Enabled()
         {
-            Log.Info("IconSelectorMeow had been loaded in NWAPI");
-
-            if (!Config.IsEnabled)
-            {
+            if (Config.IsEnabled == false)
                 return;
-            }
+
+            Log.Info("IconSelectorMeow had been loaded in NWAPI");
 
             Plugin.config = Config;
             PatchManager.TryPatch();
@@ -43,10 +51,13 @@ namespace IconSelectorMeow
 
         public override string Author => base.Author;
 
-        public override Version Version => new Version(1,1,0);
+        public override Version Version => new Version(1,1,1);
 
         public ExiledPlugin()
         {
+            if (Config.IsEnabled == false)
+                return;
+
             Log.Info("IconSelectorMeow had been loaded in Exiled");
             Plugin.config = Config;
             PatchManager.TryPatch();

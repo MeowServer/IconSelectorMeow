@@ -1,8 +1,8 @@
 ﻿using Exiled.Loader.Features;
 using HarmonyLib;
 using PluginAPI.Core;
+using System;
 using System.Linq;
-using Unity.Mathematics;
 
 namespace IconSelectorMeow
 {
@@ -13,28 +13,10 @@ namespace IconSelectorMeow
         private static bool Prefix(ref string __result)
         {
             try
-            {
-                bool useOriginal = Plugin.config.UseOriginalIcons;
-                bool useCustom = Plugin.config.UseCustomIcons;
-
-                if (useOriginal && !useCustom)
-                {
-                    __result = IconManager.GetOriginalIcon();
-                }
-                else if (!useOriginal && useCustom)
-                {
-                    __result = IconManager.GetCustomIcon();
-                }
-                else if (useOriginal && useCustom)
-                {
-                    __result = new Random().NextFloat(0, 100) <= Plugin.config.CustomIconChance ? IconManager.GetCustomIcon() : IconManager.GetOriginalIcon();
-                }
-                else
-                {
-                    Log.Error("You must enable at least one icon type in config.");
-                    return true;
-                }
-            }catch(System.Exception e)
+            { 
+                __result = new Random().NextDouble() < Plugin.config.CustomIconChance/100 ? IconManager.GetCustomIcon() : IconManager.GetOriginalIcon();
+            }
+            catch(Exception e)
             {
                 Log.Error("Error in IconSelectorMeowPatch: " + e.Message);
                 return true;
@@ -51,7 +33,7 @@ namespace IconSelectorMeow
             OriginalIconTypes type = OriginalIconTypes.Default;
 
             float total = Plugin.config.Dictionary.Values.Sum();
-            float random = (float)new System.Random().NextDouble();
+            float random = (float)new Random().NextDouble();
             float current = 0.0f;
 
             foreach (var item in Plugin.config.Dictionary)
@@ -86,7 +68,7 @@ namespace IconSelectorMeow
             if (Plugin.config.customIcon.Count == 0)
                 Log.Error("Custom icon list is empty in config.");
 
-            return Plugin.config.customIcon[new Random().NextInt(0, Plugin.config.customIcon.Count)];
+            return Plugin.config.customIcon[new Random().Next(0, Plugin.config.customIcon.Count)];
         }
     }
 

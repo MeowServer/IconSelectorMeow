@@ -23,16 +23,10 @@ namespace IconSelectorMeow
         public bool IsEnabled { get; set; } = true;
         public bool Debug { get; set; } = false;
 
-        [Description("Whether to use Exiled's embeded icons.")]
-        public bool UseOriginalIcons { get; set; } = true;
-
-        [Description("Whether to use custom icons.")]
-        public bool UseCustomIcons { get; set; } = true;
-
-        [Description("If use both icons, then chance to use custom one, select from 0 - 100")]
+        [Description("Chance to use custom icon, select from 0 - 100. 0 means original icon only, 100 means custom icon only.")]
         public float CustomIconChance { get; set; } = 20.0f;
 
-        [Description("If use original icons, then chance for each icons")]
+        [Description("If use original icons, then chance for each icons.")]
         public Dictionary<OriginalIconTypes, float> Dictionary { get; set; } = new Dictionary<OriginalIconTypes, float>
         {
             { OriginalIconTypes.Default, 25.0f },
@@ -41,8 +35,16 @@ namespace IconSelectorMeow
             { OriginalIconTypes.Halloween, 25.0f }
         };
 
+        [Description("You can get the text from website like https://www.patorjk.com/software/taag. Please add \\n for line feed.")]
         public List<string> customIcon { get; set; } = new List<string>
         {
+            " __   __                         ___                        \r\n" +
+            " \\ \\ / /   ___    _   _   _ __  |_ _|   ___    ___    _ __  \r\n" +
+            "  \\ V /   / _ \\  | | | | | '__|  | |   / __|  / _ \\  | '_ \\ \r\n" +
+            "   | |   | (_) | | |_| | | |     | |  | (__  | (_) | | | | |\r\n" +
+            "   |_|    \\___/   \\__,_| |_|    |___|  \\___|  \\___/  |_| |_|\r\n" +
+            "                                                            "
+            ,
             "\n  __  __                           \r\n" +
             " |  \\/  |   ___    ___   __      __\r\n" +
             " | |\\/| |  / _ \\  / _ \\  \\ \\ /\\ / /\r\n" +
