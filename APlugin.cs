@@ -23,7 +23,7 @@ namespace IconSelectorMeow
         internal static APlugin Instance { get; private set; }
         private Harmony harmony;
 
-        [PluginEntryPoint("AnIconSelectorMeow", "1.0.0", "Select the Exiled icon you want to show", "MeowServer")]
+        [PluginEntryPoint("AnIconSelectorMeow", "1.0.1", "Select the Exiled icon you want to show", "MeowServer")]
         [PluginPriority(byte.MinValue)]
         private void Enabled()
         {
@@ -36,7 +36,7 @@ namespace IconSelectorMeow
 
             Instance = this;
 
-            harmony = new Harmony("IconSelectorMeow 1.0.0");
+            harmony = new Harmony("IconSelectorMeow 1.0.1");
             harmony.PatchAll();
         }
     }

@@ -12,24 +12,31 @@ namespace IconSelectorMeow
     {
         private static bool Prefix(ref string __result)
         {
-            bool useOriginal = APlugin.Instance.Config.UseOriginalIcons;
-            bool useCustom = APlugin.Instance.Config.UseCustomIcons;
+            try
+            {
+                bool useOriginal = APlugin.Instance.Config.UseOriginalIcons;
+                bool useCustom = APlugin.Instance.Config.UseCustomIcons;
 
-            if (useOriginal && !useCustom)
+                if (useOriginal && !useCustom)
+                {
+                    __result = IconManager.GetOriginalIcon();
+                }
+                else if (!useOriginal && useCustom)
+                {
+                    __result = IconManager.GetCustomIcon();
+                }
+                else if (useOriginal && useCustom)
+                {
+                    __result = new Random().NextFloat(0, 100) <= APlugin.Instance.Config.CustomIconChance ? IconManager.GetCustomIcon() : IconManager.GetOriginalIcon();
+                }
+                else
+                {
+                    Log.Error("You must enable at least one icon type in config.");
+                    return true;
+                }
+            }catch(System.Exception e)
             {
-                __result = IconManager.GetOriginalIcon();
-            }
-            else if (!useOriginal && useCustom)
-            {
-                __result = IconManager.GetCustomIcon();
-            }
-            else if (useOriginal && useCustom)
-            {
-                __result = new Random().NextFloat(0, 100) <= APlugin.Instance.Config.CustomIconChance ? IconManager.GetCustomIcon() : IconManager.GetOriginalIcon();
-            }
-            else
-            {
-                Log.Error("You must enable at least one icon type in config.");
+                Log.Error("Error in IconSelectorMeowPatch: " + e.Message);
                 return true;
             }
 
@@ -47,12 +54,9 @@ namespace IconSelectorMeow
             float random = (float)new System.Random().NextDouble();
             float current = 0.0f;
 
-            Log.Info("Random: " + random + " Total: " + total);
-
             foreach (var item in APlugin.Instance.Config.Dictionary)
             {
                 current += item.Value / total;
-                Log.Info(current + " " + item.Value / total);
 
                 if (random <= current)
                 {
