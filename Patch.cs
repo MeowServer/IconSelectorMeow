@@ -14,8 +14,8 @@ namespace IconSelectorMeow
         {
             try
             {
-                bool useOriginal = APlugin.Instance.Config.UseOriginalIcons;
-                bool useCustom = APlugin.Instance.Config.UseCustomIcons;
+                bool useOriginal = Plugin.config.UseOriginalIcons;
+                bool useCustom = Plugin.config.UseCustomIcons;
 
                 if (useOriginal && !useCustom)
                 {
@@ -27,7 +27,7 @@ namespace IconSelectorMeow
                 }
                 else if (useOriginal && useCustom)
                 {
-                    __result = new Random().NextFloat(0, 100) <= APlugin.Instance.Config.CustomIconChance ? IconManager.GetCustomIcon() : IconManager.GetOriginalIcon();
+                    __result = new Random().NextFloat(0, 100) <= Plugin.config.CustomIconChance ? IconManager.GetCustomIcon() : IconManager.GetOriginalIcon();
                 }
                 else
                 {
@@ -50,11 +50,11 @@ namespace IconSelectorMeow
         {
             OriginalIconTypes type = OriginalIconTypes.Default;
 
-            float total = APlugin.Instance.Config.Dictionary.Values.Sum();
+            float total = Plugin.config.Dictionary.Values.Sum();
             float random = (float)new System.Random().NextDouble();
             float current = 0.0f;
 
-            foreach (var item in APlugin.Instance.Config.Dictionary)
+            foreach (var item in Plugin.config.Dictionary)
             {
                 current += item.Value / total;
 
@@ -83,10 +83,10 @@ namespace IconSelectorMeow
 
         public static string GetCustomIcon()
         {
-            if (APlugin.Instance.Config.customIcon.Count == 0)
+            if (Plugin.config.customIcon.Count == 0)
                 Log.Error("Custom icon list is empty in config.");
 
-            return APlugin.Instance.Config.customIcon[new Random().NextInt(0, APlugin.Instance.Config.customIcon.Count)];
+            return Plugin.config.customIcon[new Random().NextInt(0, Plugin.config.customIcon.Count)];
         }
     }
 

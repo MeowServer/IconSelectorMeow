@@ -49,6 +49,9 @@
     <Reference Include="CommandSystem.Core">
       <HintPath>..\..\..\..\OneDrive\桌面\C#测试\HintServiceMeow\HintServiceMeow\bin\Debug\CommandSystem.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Exiled.API">
+      <HintPath>..\..\HintServiceMeow\HintServiceMeow\bin\Debug\Exiled.API.dll</HintPath>
+    </Reference>
     <Reference Include="Exiled.Loader">
       <HintPath>..\..\..\..\AppData\Roaming\SCP Secret Laboratory\PluginAPI\plugins\global\Exiled.Loader.dll</HintPath>
     </Reference>
@@ -396,7 +399,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APlugin.cs" />
+    <Compile Include="APIPlugin.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Patch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

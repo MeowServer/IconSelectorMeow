@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exiled.API.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,10 +17,11 @@ namespace IconSelectorMeow
         Halloween
     }
 
-    public sealed class Config
+    public sealed class Config : IConfig
     {
         [Description("Whether the plugin is enabled.")]
         public bool IsEnabled { get; set; } = true;
+        public bool Debug { get; set; } = false;
 
         [Description("Whether to use Exiled's embeded icons.")]
         public bool UseOriginalIcons { get; set; } = true;
