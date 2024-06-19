@@ -47,9 +47,9 @@ namespace IconSelectorMeow
 
     public class ExiledPlugin : Exiled.API.Features.Plugin<Config>
     {
-        public override string Name => base.Name;
+        public override string Name => "IconSelectorMeow";
 
-        public override string Author => base.Author;
+        public override string Author => "MeowServer";
 
         public override Version Version => new Version(1,1,1);
 

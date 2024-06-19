@@ -38,7 +38,7 @@ namespace IconSelectorMeow
         [Description("You can get the text from website like https://www.patorjk.com/software/taag. Please add \\n for line feed.")]
         public List<string> customIcon { get; set; } = new List<string>
         {
-            " __   __                         ___                        \r\n" +
+            "\n __   __                         ___                        \r\n" +
             " \\ \\ / /   ___    _   _   _ __  |_ _|   ___    ___    _ __  \r\n" +
             "  \\ V /   / _ \\  | | | | | '__|  | |   / __|  / _ \\  | '_ \\ \r\n" +
             "   | |   | (_) | | |_| | | |     | |  | (__  | (_) | | | | |\r\n" +
