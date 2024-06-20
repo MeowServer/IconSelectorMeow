@@ -1,23 +1,16 @@
-﻿using Exiled.Loader;
-using PluginAPI.Core.Attributes;
+﻿using PluginAPI.Core.Attributes;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using HarmonyLib;
+using PluginAPI.Core;
+
 namespace IconSelectorMeow
 {
-    using Exiled.Loader.Features;
-    using HarmonyLib;
-    using Org.BouncyCastle.Asn1.Mozilla;
-    using PluginAPI.Core;
-    using PluginAPI.Core.Attributes;
-    using PluginAPI.Enums;
-    using System.ComponentModel;
-    using Unity.Mathematics;
-
-
     // * Version History
     // * V1.0.0
     // * - Initial release
@@ -27,11 +20,13 @@ namespace IconSelectorMeow
     // * - Fix the bug that make UseCustomIcon and UseOriginalIcon not working
     // * - Fix the bug that OnEnabled config does not works in Exiled
     // * - Add "YourIcon" into default config and add a link to icon making website
+    // * V1.1.2
+    // * - Fix the bug that randomizer does not work properly
     public class APIPlugin
     {
         [PluginConfig] public Config Config;
 
-        [PluginEntryPoint("AnIconSelectorMeow", "1.1.1", "Select the Exiled icon you want to show", "MeowServer")]
+        [PluginEntryPoint("AnIconSelectorMeow", "1.1.2", "Select the Exiled icon you want to show", "MeowServer")]
         [PluginPriority(byte.MinValue)]
         private void Enabled()
         {
@@ -51,7 +46,7 @@ namespace IconSelectorMeow
 
         public override string Author => "MeowServer";
 
-        public override Version Version => new Version(1,1,1);
+        public override Version Version => new Version(1,1,2);
 
         public ExiledPlugin()
         {
@@ -83,7 +78,7 @@ namespace IconSelectorMeow
             }
 
             Patched = true;
-            harmony = new Harmony("IconSelectorMeow 1.0.1");
+            harmony = new Harmony("IconSelectorMeow 1.1.2");
             harmony.PatchAll();
         }
 

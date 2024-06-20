@@ -13,8 +13,10 @@ namespace IconSelectorMeow
         private static bool Prefix(ref string __result)
         {
             try
-            { 
-                __result = new Random().NextDouble() < Plugin.config.CustomIconChance/100 ? IconManager.GetCustomIcon() : IconManager.GetOriginalIcon();
+            {
+                double chance = Plugin.config.CustomIconChance / 100.0;
+                bool useCustomIcon = IconManager.randomizer.NextDouble() < chance;
+                __result = useCustomIcon ? IconManager.GetCustomIcon() : IconManager.GetOriginalIcon();
             }
             catch(Exception e)
             {
@@ -28,19 +30,21 @@ namespace IconSelectorMeow
 
     internal static class IconManager
     {
+        public static readonly Random randomizer = new Random(DateTime.Now.GetHashCode());
+
         public static string GetOriginalIcon()
         {
             OriginalIconTypes type = OriginalIconTypes.Default;
 
             float total = Plugin.config.Dictionary.Values.Sum();
-            float random = (float)new Random().NextDouble();
+            float randomNum = (float)randomizer.NextDouble();
             float current = 0.0f;
 
             foreach (var item in Plugin.config.Dictionary)
             {
                 current += item.Value / total;
 
-                if (random <= current)
+                if (randomNum <= current)
                 {
                     type = item.Key;
                     break;
@@ -68,7 +72,7 @@ namespace IconSelectorMeow
             if (Plugin.config.customIcon.Count == 0)
                 Log.Error("Custom icon list is empty in config.");
 
-            return Plugin.config.customIcon[new Random().Next(0, Plugin.config.customIcon.Count)];
+            return Plugin.config.customIcon[randomizer.Next(0, Plugin.config.customIcon.Count)];
         }
     }
 
